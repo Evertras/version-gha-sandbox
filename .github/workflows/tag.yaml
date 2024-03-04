@@ -1,0 +1,32 @@
+name: Tag
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+        #paths:
+        #- info.json
+
+jobs:
+  tag:
+    name: Tag version
+    runs-on: ubuntu-latest
+    steps:
+      # Not technically needed in this particular case, just a good reminder and doesn't hurt
+      - name: Install jq
+        run: sudo apt-get install -y jq
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Tag version
+        run: |
+          version="v$(jq -r '.version' info.json)"
+          existing=$(git tag -l "$version")
+
+          if [[ -n "$version" ]]; then
+            echo "Tag already exists, nothing to do"
+            exit 0
+          fi
+
+          git tag "$version" -m "Version $version"
+
+          git tag -n
