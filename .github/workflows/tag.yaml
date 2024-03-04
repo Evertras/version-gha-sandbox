@@ -28,7 +28,7 @@ jobs:
           existing=$(git tag -l "$tag")
 
           if [[ -n "$existing" ]]; then
-            echo "Tag already exists, nothing to do"
+            echo "Tag '$tag' already exists, leaving intact"
             exit 0
           fi
 
