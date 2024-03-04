@@ -22,7 +22,7 @@ jobs:
           version="v$(jq -r '.version' info.json)"
           existing=$(git tag -l "$version")
 
-          if [[ -n "$version" ]]; then
+          if [[ -n "$existing" ]]; then
             echo "Tag already exists, nothing to do"
             exit 0
           fi
