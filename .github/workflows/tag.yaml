@@ -33,3 +33,5 @@ jobs:
           git tag "$version" -m "Version $version"
 
           git tag -n
+
+          git push --tags
