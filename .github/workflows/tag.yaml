@@ -20,6 +20,8 @@ jobs:
         run: sudo apt-get install -y jq
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Get old tags
+        run: git fetch --tags origin
       - name: Tag version
         run: |
           tag="v$(jq -r '.version' info.json)"
@@ -34,7 +36,4 @@ jobs:
           git config --global user.name "Brandon Fulljames (bot)"
 
           git tag "$tag" -m "Version $tag"
-
-          git tag -n
-
           git push origin "refs/tags/$tag"
